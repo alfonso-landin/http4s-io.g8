@@ -1,7 +1,7 @@
 package $package$
 
-import cats.effect.{IO, IOApp}
+import cats.effect.IO
+import cats.effect.IOApp
 
 object Main extends IOApp.Simple:
-  override def run: IO[Unit] =
-    $name;format="Camel"$Server.run
+  val run: IO[Unit] = $name;format="Camel"$Server.run

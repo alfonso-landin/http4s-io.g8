@@ -1,21 +1,22 @@
 package $package$
 
 import cats.effect.IO
-import cats.implicits._
-import io.circe.{Encoder, Json}
+import cats.implicits.*
+import io.circe.Encoder
+import io.circe.Json
 import org.http4s.EntityEncoder
-import org.http4s.circe._
+import org.http4s.circe.*
 
 trait HelloWorld:
   def hello(n: HelloWorld.Name): IO[HelloWorld.Greeting]
 
 object HelloWorld:
   final case class Name(name: String) extends AnyVal
-  /**
-   * More generally you will want to decouple your edge representations from
-   * your internal data structures, however this shows how you can
-   * create encoders for your data.
-   **/
+
+  /** More generally you will want to decouple your edge representations from
+    * your internal data structures, however this shows how you can create
+    * encoders for your data.
+    */
   final case class Greeting(greeting: String) extends AnyVal
   object Greeting:
     given Encoder[Greeting] = new Encoder[Greeting]:
@@ -24,7 +25,7 @@ object HelloWorld:
       )
 
     given EntityEncoder[IO, Greeting] =
-      jsonEncoderOf[IO, Greeting]
+      jsonEncoderOf[Greeting]
 
   def impl: HelloWorld = new HelloWorld:
     def hello(n: HelloWorld.Name): IO[HelloWorld.Greeting] =

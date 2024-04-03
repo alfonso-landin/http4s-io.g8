@@ -15,8 +15,7 @@ class HelloWorldSpec extends CatsEffectSuite:
     assertIO(retHelloWorld.flatMap(_.as[String]), "{\"message\":\"Hello, world\"}")
   }
 
-  private[this] val retHelloWorld: IO[Response[IO]] = {
+  private[this] val retHelloWorld: IO[Response[IO]] =
     val getHW = Request[IO](Method.GET, uri"/hello/world")
     val helloWorld = HelloWorld.impl
     $name;format="Camel"$Routes.helloWorldRoutes(helloWorld).orNotFound(getHW)
-  }
