@@ -1,3 +1,6 @@
+// scalafmt: { align.preset = most }
+import org.typelevel.sbt.tpolecat.DevMode
+
 val Http4sVersion = "$http4s_version$"
 val log4CatsVersion = "$log4cats_version$"
 val MunitVersion = "$munit_version$"
@@ -5,11 +8,13 @@ val LogbackVersion = "$logback_version$"
 val MunitCatsEffectVersion = "$munit_cats_effect_version$"
 
 lazy val root = (project in file("."))
+  .enablePlugins(JavaAppPackaging)
   .settings(
     organization := "$organization$",
     name := "$name;format="norm"$",
     version := "0.0.1-SNAPSHOT",
     scalaVersion := "$scala_version$",
+    tpolecatOptionsMode := DevMode,
     libraryDependencies ++= Seq(
       "org.http4s"      %% "http4s-ember-server" % Http4sVersion,
       "org.http4s"      %% "http4s-ember-client" % Http4sVersion,
